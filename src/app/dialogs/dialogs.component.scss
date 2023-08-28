@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: space-around;
+  background-color: #dadada;
+  padding: 40px;
+
+  .wrapper-elements {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

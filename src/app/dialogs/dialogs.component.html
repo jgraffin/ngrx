@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="wrapper-elements">
+    <app-search></app-search>
+    <app-slider></app-slider>
+  </div>
+
+  <div class="wrapper-elements">
+    <app-node-dialogs
+      *ngIf="dialogs$ | async as dialogs"
+      [data]="dialogs"
+      [size]="(size$ | async) || 0"
+    ></app-node-dialogs>
+    <app-node-dialogs-form></app-node-dialogs-form>
+  </div>
+</div>
