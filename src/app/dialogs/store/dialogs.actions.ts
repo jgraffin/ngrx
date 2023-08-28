@@ -5,7 +5,7 @@ import { DialogsItem } from './dialogs.state';
 export const loadDialogs = createAction('[Dialogs list]');
 export const loadDialogsSuccess = createAction(
   '[Dialogs loadDialogsSuccess]',
-  props<{ entities: DialogsItem[] }>()
+  props<{ payload: DialogsItem[] }>()
 );
 export const loadDialogsError = createAction('[Dialogs loadDialogsError]');
 

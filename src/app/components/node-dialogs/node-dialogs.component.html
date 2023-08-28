@@ -1,14 +1,59 @@
 <div class="dialogs" [ngStyle]="{ 'font-size': size + '%' }">
-  <div class="dialogs-item" *ngFor="let dialog of dialogs">
+  <div class="dialogs-item">
     <div class="dialogs-item-title">
       <h3>
         <i>ico</i>
-        <strong>{{ dialog.title }}</strong>
+        <strong>title goes here</strong>
       </h3>
-      <span class="dropdown-menu"></span>
     </div>
     <div class="dialogs-item-content">
-      <p>{{ dialog.conditions }}</p>
+      <div class="item-text">
+        <p>description goes here</p>
+      </div>
     </div>
+  </div>
+
+  <div *ngFor="let dialog of dialogs" class="dialogs-item has-children">
+    <div>
+      <div class="dialogs-item-title">
+        <h3>
+          <i>ico</i>
+          <strong>{{ dialog.title }}</strong>
+        </h3>
+        <span class="dropdown-menu"></span>
+      </div>
+      <div class="dialogs-item-content">
+        <div class="item-text">
+          <p>{{ dialog.conditions }}</p>
+        </div>
+        <div class="item-actions">
+          <i>ico</i>
+          <button type="button">open</button>
+        </div>
+      </div>
+
+      <div
+        class="dialogs-item__children has-children"
+        *ngFor="let dialog of dialogsChildren.data"
+      >
+        <div class="dialogs-item-title">
+          <h3>
+            <i>ico</i>
+            <strong>{{ dialog.title }}</strong>
+          </h3>
+          <span class="dropdown-menu"></span>
+        </div>
+        <div class="dialogs-item-content">
+          <div class="item-text">
+            <p>{{ dialog.conditions }}</p>
+          </div>
+          <div class="item-actions">
+            <i>ico</i>
+            <button type="button">open</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="dialogs-item-stack"></span>
   </div>
 </div>

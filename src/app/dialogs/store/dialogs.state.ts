@@ -1,12 +1,31 @@
 export interface DialogsItem {
-  id: number;
-  name: string;
-  quantity: number;
+  total: number;
+  currentPage: number;
+  pageSize: number;
+  data: Array<{
+    id: string;
+    workspaceId: string;
+    title: string;
+    conditions: string;
+    previousSibling: string;
+    type: string;
+    outputs: [
+      {
+        id: string;
+        selectionPolicy: string;
+        delimiter: null;
+        values: string[];
+        type: string;
+      }
+    ];
+    slots: [];
+    created: string;
+    updated: string;
+  }>;
 }
 
 export interface DialogsState {
-  entities: DialogsItem[];
-  isLoading: boolean;
+  payload: DialogsItem;
 }
 
 export interface SizeState {
