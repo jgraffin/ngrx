@@ -1,7 +1,14 @@
-<div class="dialogs" [ngStyle]="{ 'font-size': size + 'px' }">
-  <div class="dialogs-list">
-    <div class="dialogs-item" *ngFor="let dialog of dialogs">
-      {{ dialog.name }}
+<div class="dialogs" [ngStyle]="{ 'font-size': size + '%' }">
+  <div class="dialogs-item" *ngFor="let dialog of dialogs">
+    <div class="dialogs-item-title">
+      <h3>
+        <i>ico</i>
+        <strong>{{ dialog.title }}</strong>
+      </h3>
+      <span class="dropdown-menu"></span>
+    </div>
+    <div class="dialogs-item-content">
+      <p>{{ dialog.conditions }}</p>
     </div>
   </div>
 </div>

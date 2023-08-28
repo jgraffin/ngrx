@@ -1,0 +1,16 @@
+.dialogs {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0.625em;
+
+  .dialogs-item {
+    background: white;
+    height: 9.875em;
+    display: flex;
+    flex-direction: column;
+    transition: ease-in-out .2s;
+    width: 23em;
+    border-radius: 0.25em;
+    border: 1px solid #E1E7F1
+  }
+}

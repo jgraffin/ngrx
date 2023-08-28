@@ -15,6 +15,10 @@
   <button (click)="decreaseSize()" type="button">-</button>
 </form>
 
-<input type="number" value="{{ size$ | async }}" (change)="inputSize($event)" />
+<input
+  type="number"
+  value="{{ size$ | async | number : '1.0-0' }}"
+  (change)="inputSize($event)"
+/>
 
 <strong style="display: none" #valueSize>{{ size$ | async }}</strong>
