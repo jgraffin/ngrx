@@ -1,3 +1,14 @@
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-1.25em);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 %card {
   background: white;
   border-radius: 0.25em;
@@ -6,6 +17,7 @@
   flex-direction: column;
   height: 9.875em;
   width: 23em;
+  transition: ease-in-out 0.1s;
 }
 
 .dialogs-container {
@@ -40,12 +52,28 @@
       z-index: 2;
       overflow: visible;
       background-color: transparent;
-      border: 0;
+      border: 0.125em solid transparent;
+
+      .title,
+      .content {
+        padding: 1em;
+      }
+
+      + .dialogs-content.dialogs-content--empty {
+        margin-top: 1em;
+      }
     }
 
     &--empty {
+      margin-left: 1em;
+
       > div {
         background-color: white;
+
+        .title,
+        .content {
+          padding: 1em 0;
+        }
       }
     }
 
@@ -54,29 +82,15 @@
       height: 11em;
       overflow: hidden;
       position: relative;
+      padding-bottom: 1.2em;
       width: 80vw;
 
-      &::before {
-        content: "";
-        background: white;
-        border: 1px solid #e1e7f1;
-        border-radius: 0.25em;
-        left: 1.8em;
-        top: 1em;
-        width: 23.1em;
-        height: 9.7em;
-        position: absolute;
+      &.is-shown {
+        .dialogs-content.dialogs-content--empty,
+        .dialogs-content--accordion {
+          animation: slideIn ease-in-out 0.2s forwards;
+        }
       }
-
-      > div {
-        position: relative;
-      }
-
-      .content-has--children {
-        position: relative;
-        margin-left: 2em;
-      }
-
     }
   }
 
@@ -84,23 +98,48 @@
     @extend %card;
     position: absolute;
     left: 1.8em;
-    top: 0.7em;
+    top: 1.1em;
     z-index: 0;
 
-    &::before,
-    &::after {
+    i {
       @extend %card;
-      content: "";
+      left: -0.3em;
+      top: -0.4em;
       position: absolute;
-      right: 0.45em;
-      top: -0.6em;
-      z-index: 2;
+      height: 10em;
+
+      &::before,
+      &::after {
+        @extend %card;
+        content: "";
+        position: absolute;
+        right: 0.45em;
+        top: -0.6em;
+        z-index: 2;
+      }
+
+      &::after {
+        right: 0.2em;
+        top: -0.3em;
+        z-index: 1;
+      }
     }
 
-    &::after {
-      right: 0.2em;
-      top: -0.3em;
-      z-index: 1;
+    &.is-active {
+      border: 1px solid #9066ff;
+
+      i {
+        border: 1px solid #9066ff;
+
+        &::before {
+          border: 2px solid #9066ff;
+          top: -0.7em;
+        }
+
+        &::after {
+          border: 1px solid #9066ff;
+        }
+      }
     }
   }
 }

@@ -59,25 +59,32 @@ export class NodeDialogsComponent implements OnInit {
   }
 
   toggleAccordionNode(event: any) {
-    let currentElement = event.target;
-    const elementClassName = 'dialogs-content--accordion';
+    let currElem = event.target;
 
-    while (
-      currentElement &&
-      !currentElement.classList.contains(elementClassName)
-    ) {
-      currentElement = currentElement.parentElement;
+    const styles = {
+      attribute: 'style',
+      autoHeight: 'auto',
+      elementClassName: 'dialogs-content--accordion',
+      folderElement: '.dialogs-content >  div',
+      stack: 'is-active',
+    };
+
+    while (currElem && !currElem.classList.contains(styles.elementClassName)) {
+      currElem = currElem.parentElement;
     }
 
-    if (currentElement && currentElement.classList.contains(elementClassName)) {
-      const folder = currentElement.querySelector('.dialogs-content >  div');
+    if (currElem && currElem.classList.contains(styles.elementClassName)) {
+      const folder = currElem.querySelector(styles.folderElement);
+      const stack = folder.parentElement.nextElementSibling;
 
-      if (!currentElement.hasAttribute('style')) {
-        currentElement.style.height = 'auto';
-        folder.style = 'border: 2px solid #9066FF';
+      if (!currElem.hasAttribute(styles.attribute)) {
+        currElem.style.height = styles.autoHeight;
+        currElem.classList.add('is-shown');
+        stack.classList.add('is-active');
       } else {
-        currentElement.removeAttribute('style');
-        folder.removeAttribute('style');
+        currElem.removeAttribute(styles.attribute);
+        currElem.classList.remove('is-shown');
+        stack.classList.remove('is-active');
       }
     }
   }
