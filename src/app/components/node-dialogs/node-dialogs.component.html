@@ -1,59 +1,379 @@
-<div class="dialogs" [ngStyle]="{ 'font-size': size + '%' }">
-  <div class="dialogs-item">
-    <div class="dialogs-item-title">
-      <h3>
-        <i>ico</i>
-        <strong>title goes here</strong>
-      </h3>
+<div class="dialogs-container" [ngStyle]="{ 'font-size': size + '%' }">
+  <!-- FOLDER FULL 01 - LEVEL 0 -->
+  <div class="dialogs-content--accordion">
+    <div>
+      <div class="dialogs-content">
+        <div>
+          <div class="title">
+            <h3>
+              <i></i>
+              <strong>FOLDER 01</strong>
+            </h3>
+          </div>
+          <div class="content">
+            <div class="content-description">
+              <p>description goes here opa</p>
+            </div>
+            <div class="content-actions">
+              <i></i>
+              <button type="button" (click)="toggleAccordionNode($event)">
+                btn
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 1 -->
+        <div class="dialogs-content dialogs-content--empty">
+          <div>
+            <div class="dialogs-content">
+              <div>
+                <div class="title">
+                  <h3>
+                    <i></i>
+                    <strong>FOLDER 02</strong>
+                  </h3>
+                </div>
+                <div class="content">
+                  <div class="content-description">
+                    <p>description goes here opa</p>
+                  </div>
+                  <div class="content-actions">
+                    <i></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 1 -->
+        <div class="dialogs-content--accordion">
+          <div>
+            <div class="dialogs-content">
+              <div>
+                <div class="title">
+                  <h3>
+                    <i></i>
+                    <strong>FOLDER CHILD 02</strong>
+                  </h3>
+                </div>
+                <div class="content">
+                  <div class="content-description">
+                    <p>description goes here</p>
+                  </div>
+                  <div class="content-actions">
+                    <i></i>
+                    <button type="button" (click)="toggleAccordionNode($event)">
+                      btn
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FOLDER EMPTY 01 - LEVEL 2 -->
+              <div class="dialogs-content dialogs-content--empty">
+                <div>
+                  <div class="dialogs-content">
+                    <div>
+                      <div class="title">
+                        <h3>
+                          <i></i>
+                          <strong>FOLDER 02</strong>
+                        </h3>
+                      </div>
+                      <div class="content">
+                        <div class="content-description">
+                          <p>description goes here opa</p>
+                        </div>
+                        <div class="content-actions">
+                          <i></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FOLDER EMPTY 02 - LEVEL 2 -->
+              <div class="dialogs-content dialogs-content--empty">
+                <div>
+                  <div class="dialogs-content">
+                    <div>
+                      <div class="title">
+                        <h3>
+                          <i></i>
+                          <strong>FOLDER 02</strong>
+                        </h3>
+                      </div>
+                      <div class="content">
+                        <div class="content-description">
+                          <p>description goes here opa</p>
+                        </div>
+                        <div class="content-actions">
+                          <i></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LEVEL 2 -->
+              <div class="dialogs-content--accordion">
+                <div>
+                  <div class="dialogs-content">
+                    <div>
+                      <div class="title">
+                        <h3>
+                          <i></i>
+                          <strong>FOLDER CHILD 02</strong>
+                        </h3>
+                      </div>
+                      <div class="content">
+                        <div class="content-description">
+                          <p>description goes here</p>
+                        </div>
+                        <div class="content-actions">
+                          <i></i>
+                          <button
+                            type="button"
+                            (click)="toggleAccordionNode($event)"
+                          >
+                            btn
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- LEVEL 3 -->
+                    <div class="dialogs-content--accordion">
+                      <div>
+                        <div class="dialogs-content">
+                          <div>
+                            <div class="title">
+                              <h3>
+                                <i></i>
+                                <strong>FOLDER CHILD 02</strong>
+                              </h3>
+                            </div>
+                            <div class="content">
+                              <div class="content-description">
+                                <p>description goes here</p>
+                              </div>
+                              <div class="content-actions">
+                                <i></i>
+                                <button
+                                  type="button"
+                                  (click)="toggleAccordionNode($event)"
+                                >
+                                  btn
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- FOLDER EMPTY 01 - LEVEL 4 -->
+                          <div class="dialogs-content dialogs-content--empty">
+                            <div>
+                              <div class="dialogs-content">
+                                <div>
+                                  <div class="title">
+                                    <h3>
+                                      <i></i>
+                                      <strong>FOLDER 02</strong>
+                                    </h3>
+                                  </div>
+                                  <div class="content">
+                                    <div class="content-description">
+                                      <p>description goes here opa</p>
+                                    </div>
+                                    <div class="content-actions">
+                                      <i></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="dialogs-stack"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="dialogs-stack"></span>
+                </div>
+              </div>
+            </div>
+            <span class="dialogs-stack"></span>
+          </div>
+        </div>
+      </div>
+      <span class="dialogs-stack"></span>
     </div>
-    <div class="dialogs-item-content">
-      <div class="item-text">
-        <p>description goes here</p>
+  </div>
+
+  <!-- FOLDER FULL 02 - LEVEL 0 -->
+  <div class="dialogs-content--accordion">
+    <div>
+      <div class="dialogs-content">
+        <div>
+          <div class="title">
+            <h3>
+              <i></i>
+              <strong>FOLDER 02</strong>
+            </h3>
+          </div>
+          <div class="content">
+            <div class="content-description">
+              <p>description goes here opa</p>
+            </div>
+            <div class="content-actions">
+              <i></i>
+              <button type="button" (click)="toggleAccordionNode($event)">
+                btn
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 1 -->
+        <div class="dialogs-content--accordion">
+          <div>
+            <div class="dialogs-content">
+              <div>
+                <div class="title">
+                  <h3>
+                    <i></i>
+                    <strong>FOLDER CHILD 01</strong>
+                  </h3>
+                </div>
+                <div class="content">
+                  <div class="content-description">
+                    <p>description goes here</p>
+                  </div>
+                  <div class="content-actions">
+                    <i></i>
+                    <button type="button" (click)="toggleAccordionNode($event)">
+                      btn
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="dialogs-stack"></span>
+          </div>
+        </div>
+
+        <!-- LEVEL 1 -->
+        <div class="dialogs-content--accordion">
+          <div>
+            <div class="dialogs-content">
+              <div>
+                <div class="title">
+                  <h3>
+                    <i></i>
+                    <strong>FOLDER CHILD 02</strong>
+                  </h3>
+                </div>
+                <div class="content">
+                  <div class="content-description">
+                    <p>description goes here</p>
+                  </div>
+                  <div class="content-actions">
+                    <i></i>
+                    <button type="button" (click)="toggleAccordionNode($event)">
+                      btn
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="dialogs-stack"></span>
+          </div>
+        </div>
+      </div>
+      <span class="dialogs-stack"></span>
+    </div>
+  </div>
+
+  <!-- FOLDER EMPTY 03 - LEVEL 0 -->
+  <div class="dialogs-content dialogs-content--empty">
+    <div>
+      <div class="dialogs-content">
+        <div>
+          <div class="title">
+            <h3>
+              <i></i>
+              <strong>FOLDER 02</strong>
+            </h3>
+          </div>
+          <div class="content">
+            <div class="content-description">
+              <p>description goes here opa</p>
+            </div>
+            <div class="content-actions">
+              <i></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div *ngFor="let dialog of dialogs" class="dialogs-item has-children">
+  <!-- FOLDER FULL 04 - LEVEL 0 -->
+  <div class="dialogs-content--accordion">
     <div>
-      <div class="dialogs-item-title">
-        <h3>
-          <i>ico</i>
-          <strong>{{ dialog.title }}</strong>
-        </h3>
-        <span class="dropdown-menu"></span>
-      </div>
-      <div class="dialogs-item-content">
-        <div class="item-text">
-          <p>{{ dialog.conditions }}</p>
+      <div class="dialogs-content">
+        <div>
+          <div class="title">
+            <h3>
+              <i></i>
+              <strong>FOLDER 02</strong>
+            </h3>
+          </div>
+          <div class="content">
+            <div class="content-description">
+              <p>description goes here opa</p>
+            </div>
+            <div class="content-actions">
+              <i></i>
+              <button type="button" (click)="toggleAccordionNode($event)">
+                btn
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="item-actions">
-          <i>ico</i>
-          <button type="button">open</button>
-        </div>
-      </div>
 
-      <div
-        class="dialogs-item__children has-children"
-        *ngFor="let dialog of dialogsChildren.data"
-      >
-        <div class="dialogs-item-title">
-          <h3>
-            <i>ico</i>
-            <strong>{{ dialog.title }}</strong>
-          </h3>
-          <span class="dropdown-menu"></span>
-        </div>
-        <div class="dialogs-item-content">
-          <div class="item-text">
-            <p>{{ dialog.conditions }}</p>
-          </div>
-          <div class="item-actions">
-            <i>ico</i>
-            <button type="button">open</button>
+        <!-- LEVEL 1 -->
+        <div class="dialogs-content--accordion">
+          <div>
+            <div class="dialogs-content">
+              <div>
+                <div class="title">
+                  <h3>
+                    <i></i>
+                    <strong>FOLDER CHILD 01</strong>
+                  </h3>
+                </div>
+                <div class="content">
+                  <div class="content-description">
+                    <p>description goes here</p>
+                  </div>
+                  <div class="content-actions">
+                    <i></i>
+                    <button type="button" (click)="toggleAccordionNode($event)">
+                      btn
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="dialogs-stack"></span>
           </div>
         </div>
       </div>
+      <span class="dialogs-stack"></span>
     </div>
-    <span class="dialogs-item-stack"></span>
   </div>
 </div>

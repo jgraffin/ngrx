@@ -1,56 +1,106 @@
-%dialog-card {
-    background: white;
-    height: 9.875em;
-    display: flex;
-    flex-direction: column;
-    transition: ease-in-out .2s;
-    width: 23em;
-    border-radius: 0.25em;
-    border: 1px solid #E1E7F1;
+%card {
+  background: white;
+  border-radius: 0.25em;
+  border: 1px solid #e1e7f1;
+  display: flex;
+  flex-direction: column;
+  height: 9.875em;
+  width: 23em;
 }
 
-.dialogs {
+.dialogs-container {
   display: flex;
   flex-direction: column;
   grid-gap: 0.625em;
 
-  .dialogs-item {
-    @extend %dialog-card;
+  .dialogs-content {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1em;
+    margin-left: 1em;
+    position: relative;
 
+    .content {
+      &-actions {
+        display: flex;
+        justify-content: space-between;
 
-    &.has-children {
-      position: relative;
-
-      > div {
-        @extend %dialog-card;
-        position: relative;
-        z-index: 5;
-      }
-
-      .dialogs-item__children {
-        margin-left: 20px;
-      }
-
-      .dialogs-item-stack {
-        @extend %dialog-card;
-        position: absolute;
-        right: -0.625em;
-        top: 0.625em;
-        z-index: 0;
-
-        &::before, &::after {
-          @extend %dialog-card;
-          content: '';
-          position: absolute;
-          right: -1.25em;
-          top: 1.25em;
-          z-index: 0;
+        button {
+          padding: 0.4em 2em;
         }
       }
     }
 
-    &__children {
-      @extend %dialog-card;
+    > div {
+      @extend %card;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+      overflow: visible;
+      background-color: transparent;
+      border: 0;
+    }
+
+    &--empty {
+      > div {
+        background-color: white;
+      }
+    }
+
+    &--accordion {
+      display: flex;
+      height: 11em;
+      overflow: hidden;
+      position: relative;
+      width: 80vw;
+
+      &::before {
+        content: "";
+        background: white;
+        border: 1px solid #e1e7f1;
+        border-radius: 0.25em;
+        left: 1.8em;
+        top: 1em;
+        width: 23.1em;
+        height: 9.7em;
+        position: absolute;
+      }
+
+      > div {
+        position: relative;
+      }
+
+      .content-has--children {
+        position: relative;
+        margin-left: 2em;
+      }
+
+    }
+  }
+
+  .dialogs-stack {
+    @extend %card;
+    position: absolute;
+    left: 1.8em;
+    top: 0.7em;
+    z-index: 0;
+
+    &::before,
+    &::after {
+      @extend %card;
+      content: "";
+      position: absolute;
+      right: 0.45em;
+      top: -0.6em;
+      z-index: 2;
+    }
+
+    &::after {
+      right: 0.2em;
+      top: -0.3em;
+      z-index: 1;
     }
   }
 }

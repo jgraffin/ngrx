@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadDialogs } from 'src/app/dialogs/store/dialogs.actions';
 import { DialogsItem, DialogsState } from 'src/app/dialogs/store/dialogs.state';
@@ -11,6 +17,7 @@ import { DialogsItem, DialogsState } from 'src/app/dialogs/store/dialogs.state';
 export class NodeDialogsComponent implements OnInit {
   @Input() data!: any;
   @Input() size!: number;
+  @ViewChild('accordion') accordion!: any;
   value!: number;
 
   dialogs: any[] = [];
@@ -49,5 +56,27 @@ export class NodeDialogsComponent implements OnInit {
 
     this.dialogs = this.data.data.map((values: any) => values);
     console.log(this.dialogs);
+  }
+
+  toggleAccordionNode(event: any) {
+    const contentHeight =
+      event.target.parentElement.parentElement.parentElement.parentElement
+        .offsetHeight;
+
+    const accordion =
+      event.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.parentElement;
+
+    console.log(
+      event.target.parentElement.parentElement.parentElement.parentElement
+    );
+
+    console.log(event.target);
+
+    if (!accordion.getAttribute('style')) {
+      accordion.style = `height: auto`;
+    } else {
+      accordion.removeAttribute('style');
+    }
   }
 }
