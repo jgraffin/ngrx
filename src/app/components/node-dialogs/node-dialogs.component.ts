@@ -17,7 +17,7 @@ import { DialogsItem, DialogsState } from 'src/app/dialogs/store/dialogs.state';
 export class NodeDialogsComponent implements OnInit {
   @Input() data!: any;
   @Input() size!: number;
-  @ViewChild('accordion') accordion!: any;
+  @ViewChild('dialogContent') dialogContent!: any;
   value!: number;
 
   dialogs: any[] = [];
@@ -59,24 +59,26 @@ export class NodeDialogsComponent implements OnInit {
   }
 
   toggleAccordionNode(event: any) {
-    const contentHeight =
-      event.target.parentElement.parentElement.parentElement.parentElement
-        .offsetHeight;
+    let currentElement = event.target;
+    const elementClassName = 'dialogs-content--accordion';
 
-    const accordion =
-      event.target.parentElement.parentElement.parentElement.parentElement
-        .parentElement.parentElement;
+    while (
+      currentElement &&
+      !currentElement.classList.contains(elementClassName)
+    ) {
+      currentElement = currentElement.parentElement;
+    }
 
-    console.log(
-      event.target.parentElement.parentElement.parentElement.parentElement
-    );
+    if (currentElement && currentElement.classList.contains(elementClassName)) {
+      const folder = currentElement.querySelector('.dialogs-content >  div');
 
-    console.log(event.target);
-
-    if (!accordion.getAttribute('style')) {
-      accordion.style = `height: auto`;
-    } else {
-      accordion.removeAttribute('style');
+      if (!currentElement.hasAttribute('style')) {
+        currentElement.style.height = 'auto';
+        folder.style = 'border: 2px solid #9066FF';
+      } else {
+        currentElement.removeAttribute('style');
+        folder.removeAttribute('style');
+      }
     }
   }
 }
