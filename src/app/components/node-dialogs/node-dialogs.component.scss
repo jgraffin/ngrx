@@ -17,19 +17,15 @@
   flex-direction: column;
   height: 9.875em;
   width: 23em;
-  transition: ease-in-out 0.1s;
 }
 
 .dialogs-container {
   display: flex;
   flex-direction: column;
-  grid-gap: 0.625em;
 
   .dialogs-content {
     display: flex;
     flex-direction: column;
-    grid-gap: 1em;
-    margin-left: 1em;
     position: relative;
 
     .content {
@@ -50,46 +46,126 @@
       justify-content: space-between;
       position: relative;
       z-index: 2;
-      overflow: visible;
       background-color: transparent;
-      border: 0.125em solid transparent;
+      border: 0;
+      height: 12em;
 
-      .title,
-      .content {
-        padding: 1em;
+      .title {
+        padding-left: 2.4em;
+        padding-top: 1em;
+        display: flex;
+        align-items: center;
+        height: 5em;
+
+        > div {
+          display: flex;
+          align-items: center;
+          padding-bottom: 0.5em;
+          display: flex;
+          width: 100%;
+
+          strong {
+            color: #002257;
+            font-size: 1em;
+            font-weight: 100;
+          }
+
+          button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            background-color: transparent;
+            border-radius: 5.625em;
+            height: 1.21875em;
+            width: 1.21875em;
+            border: 0.0625em solid #818181;
+            cursor: pointer;
+
+            i {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+              width: 100%;
+            }
+          }
+        }
       }
 
-      + .dialogs-content.dialogs-content--empty {
-        margin-top: 1em;
+      .content {
+        display: flex;
+        grid-gap: 1em;
+        flex-direction: column;
+        padding-bottom: 3em;
+        padding-left: 2.4em;
+
+        .content-description {
+          border-bottom: 1px solid #e9ebf2;
+          padding-bottom: 0.5em;
+
+          p {
+            font-size: 1em;
+            color: #002257;
+          }
+        }
+
+        .content-actions {
+          button {
+            background-color: transparent;
+            border: 0;
+            font-weight: 600;
+            color: #0082f6;
+            padding: 0 0.4em;
+            cursor: pointer;
+          }
+        }
       }
     }
 
     &--empty {
       margin-left: 1em;
+      height: 10.5em !important;
+      margin-top: -0.4em;
+
+      .title,
+      .content {
+        padding-left: 1.4em !important;
+      }
 
       > div {
         background-color: white;
+        height: 9.8em !important;
 
         .title,
         .content {
-          padding: 1em 0;
+          padding-right: 1.4em;
         }
       }
     }
 
     &--accordion {
       display: flex;
-      height: 11em;
+      height: 12em;
       overflow: hidden;
       position: relative;
-      padding-bottom: 1.2em;
       width: 80vw;
 
-      &.is-shown {
-        .dialogs-content.dialogs-content--empty,
-        .dialogs-content--accordion {
-          animation: slideIn ease-in-out 0.2s forwards;
+      .children {
+        visibility: hidden;
+
+        &.is-visible {
+          height: auto;
+          visibility: visible;
         }
+      }
+
+      .dialogs-content--empty {
+        margin-left: 3em;
+      }
+
+      .dialogs-content--accordion {
+        margin-left: 2em;
       }
     }
   }

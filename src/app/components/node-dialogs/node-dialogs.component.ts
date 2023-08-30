@@ -64,9 +64,11 @@ export class NodeDialogsComponent implements OnInit {
     const styles = {
       attribute: 'style',
       autoHeight: 'auto',
+      children: '.dialogs-content .children',
       elementClassName: 'dialogs-content--accordion',
       folderElement: '.dialogs-content >  div',
-      stack: 'is-active',
+      isActive: 'is-active',
+      isVisible: 'is-visible',
     };
 
     while (currElem && !currElem.classList.contains(styles.elementClassName)) {
@@ -75,16 +77,17 @@ export class NodeDialogsComponent implements OnInit {
 
     if (currElem && currElem.classList.contains(styles.elementClassName)) {
       const folder = currElem.querySelector(styles.folderElement);
+      const children = currElem.querySelector(styles.children);
       const stack = folder.parentElement.nextElementSibling;
 
       if (!currElem.hasAttribute(styles.attribute)) {
         currElem.style.height = styles.autoHeight;
-        currElem.classList.add('is-shown');
-        stack.classList.add('is-active');
+        children.classList.add(styles.isVisible);
+        stack.classList.add(styles.isActive);
       } else {
         currElem.removeAttribute(styles.attribute);
-        currElem.classList.remove('is-shown');
-        stack.classList.remove('is-active');
+        children.classList.remove(styles.isVisible);
+        stack.classList.remove(styles.isActive);
       }
     }
   }
