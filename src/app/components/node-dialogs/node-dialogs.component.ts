@@ -80,12 +80,12 @@ export class NodeDialogsComponent implements OnInit {
       const children = currElem.querySelector(styles.children);
       const stack = folder.parentElement.nextElementSibling;
 
-      if (!currElem.hasAttribute(styles.attribute)) {
-        currElem.style.height = styles.autoHeight;
+      if (!currElem.classList.contains(styles.isVisible)) {
+        currElem.classList.add(styles.isVisible);
         children.classList.add(styles.isVisible);
         stack.classList.add(styles.isActive);
       } else {
-        currElem.removeAttribute(styles.attribute);
+        currElem.classList.remove(styles.isVisible);
         children.classList.remove(styles.isVisible);
         stack.classList.remove(styles.isActive);
       }

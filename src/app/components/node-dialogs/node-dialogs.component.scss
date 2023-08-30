@@ -136,6 +136,7 @@
       > div {
         background-color: white;
         height: 9.8em !important;
+        border: 1px solid #e1e7f1;
 
         .title,
         .content {
@@ -151,21 +152,84 @@
       position: relative;
       width: 80vw;
 
+      &.is-visible {
+        height: auto;
+
+        &::before {
+          content: "";
+          width: 0.6875em;
+          height: 0.6875em;
+          position: absolute;
+          left: 1.6em;
+          top: 11em;
+          border-radius: 90px;
+          border: 1px solid #0082f6;
+          background: white;
+          z-index: 2;
+        }
+
+        &::after {
+          content: "";
+          width: 1px;
+          height: 100%;
+          position: absolute;
+          left: 2em;
+          top: 11em;
+          background: #0082f6;
+          z-index: 0;
+        }
+
+        .dialogs-content.dialogs-content--empty, .dialogs-stack {
+          &::before {
+            content: "";
+            width: 1.5em;
+            height: 1px;
+            background: #0082f6;
+            position: absolute;
+            left: -2em;
+            top: 4.5em;
+          }
+        }
+
+        .dialogs-stack {
+          &::before {
+            left: -2.8em;
+            top: 4.5em;
+          }
+
+          &.is-active {
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+
       .children {
         visibility: hidden;
 
         &.is-visible {
+          animation: slideIn ease-in-out 0.2s forwards;
           height: auto;
           visibility: visible;
+        }
+
+        .dialogs-content.dialogs-content--empty {
+          margin-bottom: 0.8em;
+
+          + div {
+            margin-bottom: 0;
+          }
         }
       }
 
       .dialogs-content--empty {
-        margin-left: 3em;
+        margin-left: 4em;
       }
 
       .dialogs-content--accordion {
-        margin-left: 2em;
+        margin-left: 3em;
+        overflow: visible;
       }
     }
   }
