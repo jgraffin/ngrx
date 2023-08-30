@@ -142,6 +142,10 @@
         .content {
           padding-right: 1.4em;
         }
+
+        &:hover {
+          box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+        }
       }
     }
 
@@ -178,35 +182,44 @@
           background: #0082f6;
           z-index: 0;
         }
+      }
 
-        .dialogs-content.dialogs-content--empty, .dialogs-stack {
-          &::before {
-            content: "";
-            width: 1.5em;
-            height: 1px;
-            background: #0082f6;
-            position: absolute;
-            left: -2em;
-            top: 4.5em;
-          }
-        }
-
-        .dialogs-stack {
-          &::before {
-            left: -2.8em;
-            top: 4.5em;
-          }
-
-          &.is-active {
-            &::before {
-              display: none;
-            }
+      > div {
+        &:hover {
+          .dialogs-stack {
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
           }
         }
       }
 
       .children {
         visibility: hidden;
+
+        .arrow-right {
+          position: absolute;
+          top: 3.95em;
+          width: 1.9em;
+          height: 1px;
+          background: #0082f6;
+
+          &::before,
+          &::after {
+            content: "";
+            width: 0.65em;
+            height: 1px;
+            background: #0082f6;
+            display: block;
+            transform: rotate(-141deg);
+            position: absolute;
+            right: 0;
+            top: -0.25em;
+          }
+
+          &::after {
+            transform: rotate(-40deg);
+            top: 0.26em;
+          }
+        }
 
         &.is-visible {
           animation: slideIn ease-in-out 0.2s forwards;
@@ -219,6 +232,16 @@
 
           + div {
             margin-bottom: 0;
+          }
+
+          .arrow-right {
+            left: -2em;
+          }
+        }
+
+        .dialogs-content--accordion {
+          .arrow-right {
+            left: -1em;
           }
         }
       }
