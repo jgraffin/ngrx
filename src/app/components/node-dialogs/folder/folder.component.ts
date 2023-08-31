@@ -10,6 +10,8 @@ export class FolderComponent {
   @Input() type?: string;
   @Input() conditions?: string;
   @Input() title?: string;
+  @Input() parent?: string;
+  @Input() children?: any[] = [];
   @Output() toggleEmitter = new EventEmitter();
 
   onInvokeEvent(event: Event) {

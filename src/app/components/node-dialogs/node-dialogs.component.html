@@ -130,24 +130,27 @@
 
 <div class="dialogs-container" [ngStyle]="{ 'font-size': size + '%' }">
   <ng-container *ngIf="dialogs.length > 0; else noDialogsAvailable">
-    <ng-container *ngFor="let item of dialogs">
+    <ng-container *ngFor="let item of dialogsNew">
       <app-folder
         *ngIf="item.type !== 'STANDARD'; else dialog"
+        [children]="item.children"
         [id]="item.id"
         [type]="item.type"
-        [conditions]="item.conditions"
+        [conditions]="item.type"
         [title]="item.title"
         (toggleEmitter)="toggleAccordionNode($event)"
       ></app-folder>
 
       <ng-template #dialog>
-        <app-dialog
-          *ngIf="item.type === 'STANDARD'"
-          [id]="item.id"
-          [type]="item.type"
-          [conditions]="item.conditions"
-          [title]="item.title"
-        ></app-dialog>
+        <ng-template *ngIf="!item.parent">
+          <app-dialog
+            *ngIf="item.type === 'STANDARD'"
+            [id]="item.id"
+            [type]="item.type"
+            [conditions]="item.conditions"
+            [title]="item.title"
+          ></app-dialog>
+        </ng-template>
       </ng-template>
     </ng-container>
   </ng-container>

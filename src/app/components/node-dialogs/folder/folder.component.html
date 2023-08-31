@@ -21,7 +21,40 @@
       </div>
 
       <div class="children">
-        <div class="dialogs-content--accordion">
+        <ng-container *ngFor="let child of children">
+          <app-dialog
+            [parent]="child.parent"
+            [id]="child.id"
+            [type]="child.type"
+            [conditions]="child.conditions"
+            [title]="child.title"
+          ></app-dialog>
+        </ng-container>
+        <!-- <div class="dialogs-content dialogs-content--empty">
+                  <span class="arrow-right"></span>
+                  <div>
+                    <div class="dialogs-content">
+                      <div>
+                        <div class="title">
+                          <div>
+                            <i></i>
+                            <strong>Cidades aquiii</strong>
+                            <button type="button"><i>...</i></button>
+                          </div>
+                        </div>
+                        <div class="content">
+                          <div class="content-description">
+                            <p>description goes here opa</p>
+                          </div>
+                          <div class="content-actions">
+                            <i></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+        <!-- <div class="dialogs-content--accordion">
           <span class="arrow-right"></span>
           <div>
             <div class="dialogs-content">
@@ -46,38 +79,13 @@
                 </div>
               </div>
 
-              <div class="children">
-                <div class="dialogs-content dialogs-content--empty">
-                  <span class="arrow-right"></span>
-                  <div>
-                    <div class="dialogs-content">
-                      <div>
-                        <div class="title">
-                          <div>
-                            <i></i>
-                            <strong>Cidades aquiii</strong>
-                            <button type="button"><i>...</i></button>
-                          </div>
-                        </div>
-                        <div class="content">
-                          <div class="content-description">
-                            <p>description goes here opa</p>
-                          </div>
-                          <div class="content-actions">
-                            <i></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
             <span class="dialogs-stack">
               <i></i>
             </span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <span class="dialogs-stack">

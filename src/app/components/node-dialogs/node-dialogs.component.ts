@@ -28,6 +28,7 @@ export class NodeDialogsComponent implements OnInit {
   value!: number;
 
   dialogs: any[] = [];
+  dialogsNew: any[] = [];
 
   constructor(private store: Store) {}
 
@@ -35,7 +36,17 @@ export class NodeDialogsComponent implements OnInit {
     this.store.dispatch(loadDialogs());
 
     this.dialogs = this.data.data.map((values: any) => values);
-    console.log(this.dialogs);
+
+    const data = this.dialogs.map((item: any) => ({
+      ...item,
+      children:
+        item.parent ??
+        this.dialogs.filter((itemChild) => itemChild.parent === item.id),
+    }));
+
+    this.dialogsNew = data;
+
+    console.log(this.dialogsNew);
   }
 
   toggleAccordionNode(event: any) {

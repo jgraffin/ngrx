@@ -10,4 +10,5 @@ export class DialogComponent {
   @Input() type?: string;
   @Input() conditions?: string;
   @Input() title?: string;
+  @Input() parent?: string;
 }
