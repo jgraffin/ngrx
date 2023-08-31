@@ -1,187 +1,8 @@
-<div class="dialogs-container" [ngStyle]="{ 'font-size': size + '%' }">
-  <!-- <div class="dialogs-content dialogs-content--empty --dialog">
-    <span class="arrow-right"></span>
-    <div>
-      <div class="dialogs-content">
-        <div>
-          <div class="title">
-            <div>
-              <i></i>
-              <strong>Cidades</strong>
-              <button type="button"><i>...</i></button>
-            </div>
-          </div>
-          <div class="content">
-            <div class="content-description">
-              <p>description goes here opa</p>
-            </div>
-            <div class="content-actions">
-              <i></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="dialogs-content--accordion --folder">
-    <div>
-      <div class="dialogs-content">
-        <div>
-          <div class="title">
-            <div>
-              <i></i>
-              <strong>Cidades</strong>
-              <button type="button"><i>...</i></button>
-            </div>
-          </div>
-          <div class="content">
-            <div class="content-description">
-              <p>description goes here opa</p>
-            </div>
-            <div class="content-actions">
-              <i></i>
-              <button type="button" (click)="toggleAccordionNode($event)">
-                >
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="children">
-          <div class="dialogs-content--accordion">
-            <span class="arrow-right"></span>
-            <div>
-              <div class="dialogs-content">
-                <div>
-                  <div class="title">
-                    <div>
-                      <i></i>
-                      <strong>Cidades</strong>
-                      <button type="button"><i>...</i></button>
-                    </div>
-                  </div>
-                  <div class="content">
-                    <div class="content-description">
-                      <p>description goes here</p>
-                    </div>
-                    <div class="content-actions">
-                      <i></i>
-                      <button
-                        type="button"
-                        (click)="toggleAccordionNode($event)"
-                      >
-                        >
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="children">
-                  <div class="dialogs-content dialogs-content--empty">
-                    <span class="arrow-right"></span>
-                    <div>
-                      <div class="dialogs-content">
-                        <div>
-                          <div class="title">
-                            <div>
-                              <i></i>
-                              <strong>Cidades</strong>
-                              <button type="button"><i>...</i></button>
-                            </div>
-                          </div>
-                          <div class="content">
-                            <div class="content-description">
-                              <p>description goes here opa</p>
-                            </div>
-                            <div class="content-actions">
-                              <i></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="dialogs-stack">
-                <i></i>
-              </span>
-            </div>
-          </div>
-
-          <div class="dialogs-content--accordion">
-            <span class="arrow-right"></span>
-            <div>
-              <div class="dialogs-content">
-                <div>
-                  <div class="title">
-                    <div>
-                      <i></i>
-                      <strong>Cidades</strong>
-                      <button type="button"><i>...</i></button>
-                    </div>
-                  </div>
-                  <div class="content">
-                    <div class="content-description">
-                      <p>description goes here</p>
-                    </div>
-                    <div class="content-actions">
-                      <i></i>
-                      <button
-                        type="button"
-                        (click)="toggleAccordionNode($event)"
-                      >
-                        >
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="children">
-                  <div class="dialogs-content dialogs-content--empty">
-                    <span class="arrow-right"></span>
-                    <div>
-                      <div class="dialogs-content">
-                        <div>
-                          <div class="title">
-                            <div>
-                              <i></i>
-                              <strong>Cidades</strong>
-                              <button type="button"><i>...</i></button>
-                            </div>
-                          </div>
-                          <div class="content">
-                            <div class="content-description">
-                              <p>description goes here opa</p>
-                            </div>
-                            <div class="content-actions">
-                              <i></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="dialogs-stack">
-                <i></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <span class="dialogs-stack">
-        <i></i>
-      </span>
-    </div>
-  </div> -->
-
-  <ng-container *ngIf="dialogs.length >= 1">
+<!-- <div class="dialogs-container" [ngStyle]="{ 'font-size': size + '%' }">
+  <ng-container *ngFor="let item of dialogs">
     <div
-      *ngFor="let dialog of dialogs"
-      class="dialogs-content--accordion --folder"
+      *ngIf="item.type !== 'STANDARD'; else dialog"
+      class="dialogs-content--accordion"
     >
       <div>
         <div class="dialogs-content">
@@ -189,13 +10,13 @@
             <div class="title">
               <div>
                 <i></i>
-                <strong>{{ dialog.title }}</strong>
+                <strong>{{ item.id }}</strong>
                 <button type="button"><i>...</i></button>
               </div>
             </div>
             <div class="content">
               <div class="content-description">
-                <p>{{ dialog.conditions }}</p>
+                <p>{{ item.conditions }}</p>
               </div>
               <div class="content-actions">
                 <i></i>
@@ -207,7 +28,7 @@
           </div>
 
           <div class="children">
-            <div class="dialogs-content dialogs-content--empty">
+            <div class="dialogs-content--accordion">
               <span class="arrow-right"></span>
               <div>
                 <div class="dialogs-content">
@@ -221,14 +42,49 @@
                     </div>
                     <div class="content">
                       <div class="content-description">
-                        <p>description goes here opa</p>
+                        <p>description goes here</p>
                       </div>
                       <div class="content-actions">
                         <i></i>
+                        <button
+                          type="button"
+                          (click)="toggleAccordionNode($event)"
+                        >
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="children">
+                    <div class="dialogs-content dialogs-content--empty">
+                      <div>
+                        <div class="dialogs-content">
+                          <div>
+                            <div class="title">
+                              <div>
+                                <i></i>
+                                <strong>Cidades aquiii</strong>
+                                <button type="button"><i>...</i></button>
+                              </div>
+                            </div>
+                            <div class="content">
+                              <div class="content-description">
+                                <p>description goes here opa</p>
+                              </div>
+                              <div class="content-actions">
+                                <i></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <span class="dialogs-stack">
+                  <i></i>
+                </span>
               </div>
             </div>
           </div>
@@ -238,5 +94,64 @@
         </span>
       </div>
     </div>
+
+    <ng-template #dialog>
+      <div
+        *ngIf="item.type === 'STANDARD'"
+        class="dialogs-content dialogs-content--empty --dialog"
+      >
+        <span class="arrow-right"></span>
+        <div>
+          <div class="dialogs-content">
+            <div>
+              <div class="title">
+                <div>
+                  <i></i>
+                  <strong>{{ item.id }}</strong>
+                  <button type="button"><i>...</i></button>
+                </div>
+              </div>
+              <div class="content">
+                <div class="content-description">
+                  <p>{{ item.conditions }}</p>
+                </div>
+                <div class="content-actions">
+                  <i></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </ng-container>
+</div>
+ -->
+
+<div class="dialogs-container" [ngStyle]="{ 'font-size': size + '%' }">
+  <ng-container *ngIf="dialogs.length > 0; else noDialogsAvailable">
+    <ng-container *ngFor="let item of dialogs">
+      <app-folder
+        *ngIf="item.type !== 'STANDARD'; else dialog"
+        [id]="item.id"
+        [type]="item.type"
+        [conditions]="item.conditions"
+        [title]="item.title"
+        (toggleEmitter)="toggleAccordionNode($event)"
+      ></app-folder>
+
+      <ng-template #dialog>
+        <app-dialog
+          *ngIf="item.type === 'STANDARD'"
+          [id]="item.id"
+          [type]="item.type"
+          [conditions]="item.conditions"
+          [title]="item.title"
+        ></app-dialog>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-template #noDialogsAvailable>
+    <p>Nenhum diálogo disponível</p>
+  </ng-template>
 </div>

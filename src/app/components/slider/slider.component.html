@@ -1,24 +1,33 @@
-<form oninput="result.value = slider.value" (change)="sliderSize()">
-  <input
-    type="range"
-    id="slider"
-    min="1"
-    max="100"
-    value="{{ size$ | async }}"
-  />
-  <br />
+<div class="slider">
+  <form oninput="result.value = slider.value" (change)="sliderSize()">
+    <div class="slider-input">
+      <input
+        type="range"
+        id="slider"
+        min="40"
+        max="100"
+        value="{{ size$ | async }}"
+      />
 
-  <output style="display: none" name="result" for="slider" #result>
-    {{ size$ | async }}
-  </output>
-  <button (click)="increaseSize()" type="button">+</button>
-  <button (click)="decreaseSize()" type="button">-</button>
-</form>
+      <div class="slider-input-actions">
+        <button (click)="decreaseSize()" type="button">-</button>
+        <button (click)="increaseSize()" type="button">+</button>
+      </div>
+    </div>
 
-<input
-  type="number"
-  value="{{ size$ | async | number : '1.0-0' }}"
-  (change)="inputSize($event)"
-/>
+    <div class="slider-input-hidden">
+      <output name="result" for="slider" #result>
+        {{ size$ | async }}
+      </output>
+      <strong #valueSize>{{ size$ | async }}</strong>
+    </div>
+  </form>
 
-<strong style="display: none" #valueSize>{{ size$ | async }}</strong>
+  <div class="slider-input-number">
+    <input
+      type="number"
+      value="{{ size$ | async | number : '1.0-0' }}"
+      (change)="inputSize($event)"
+    />
+  </div>
+</div>
