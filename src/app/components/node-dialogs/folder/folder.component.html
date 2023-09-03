@@ -21,15 +21,25 @@
       </div>
 
       <div class="children">
-        <ng-container *ngFor="let child of children">
-          <app-dialog
-            [parent]="child.parent"
+        <ng-container *ngFor="let child of childrenFolder">
+          <app-folder
+            [children]="child.children"
             [id]="child.id"
             [type]="child.type"
             [conditions]="child.conditions"
             [title]="child.title"
+          ></app-folder>
+        </ng-container>
+
+        <ng-container *ngFor="let item of children">
+          <app-dialog
+            [id]="item.id"
+            [type]="item.type"
+            [conditions]="item.conditions"
+            [title]="item.title"
           ></app-dialog>
         </ng-container>
+
         <!-- <div class="dialogs-content dialogs-content--empty">
                   <span class="arrow-right"></span>
                   <div>

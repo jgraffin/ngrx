@@ -37,16 +37,34 @@ export class NodeDialogsComponent implements OnInit {
 
     this.dialogs = this.data.data.map((values: any) => values);
 
-    const data = this.dialogs.map((item: any) => ({
-      ...item,
-      children:
-        item.parent ??
-        this.dialogs.filter((itemChild) => itemChild.parent === item.id),
-    }));
+    this.folderStructure(this.dialogs);
+  }
 
-    this.dialogsNew = data;
+  folderStructure(arr: any) {
+    const result = arr.reduce(
+      ({ nodes, roots }: any, o: any) => {
+        const node =
+          o.type === 'FOLDER'
+            ? { ...o, children: [], ...nodes.get(o.id) } // create folder node
+            : o;
 
-    console.log(this.dialogsNew);
+        nodes.set(o.id, node); // set node to map
+
+        if (!o.parent) roots.push(node); // if no parent add to roots
+        else {
+          // create parent if it doesn't exist
+          if (!nodes.has(o.parent)) o.set({ id: o.parent, children: [] });
+
+          // add child to parent
+          nodes.get(o.parent).children.push(node);
+        }
+
+        return { nodes, roots };
+      },
+      { nodes: new Map(), roots: [] }
+    ).roots; // get the roots
+
+    console.log(result);
   }
 
   toggleAccordionNode(event: any) {
