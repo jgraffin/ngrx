@@ -21,81 +21,28 @@
       </div>
 
       <div class="children">
-        <ng-container *ngFor="let child of childrenFolder">
-          <app-folder
-            [children]="child.children"
-            [id]="child.id"
-            [type]="child.type"
-            [conditions]="child.conditions"
-            [title]="child.title"
-          ></app-folder>
-        </ng-container>
-
         <ng-container *ngFor="let item of children">
-          <app-dialog
-            [id]="item.id"
-            [type]="item.type"
-            [conditions]="item.conditions"
-            [title]="item.title"
-          ></app-dialog>
+          <ng-container *ngIf="item.type !== 'STANDARD'; else dialog">
+            <app-folder
+              [id]="item.id"
+              [children]="item.children"
+              [type]="item.type"
+              [conditions]="item.conditions"
+              [title]="item.title"
+              (toggleEmitter)="onInvokeEvent($event)"
+            ></app-folder>
+          </ng-container>
+          <ng-template #dialog>
+            <ng-container *ngIf="item.type === 'STANDARD'">
+              <app-dialog
+                [id]="item.id"
+                [type]="item.type"
+                [conditions]="item.conditions"
+                [title]="item.title"
+              ></app-dialog>
+            </ng-container>
+          </ng-template>
         </ng-container>
-
-        <!-- <div class="dialogs-content dialogs-content--empty">
-                  <span class="arrow-right"></span>
-                  <div>
-                    <div class="dialogs-content">
-                      <div>
-                        <div class="title">
-                          <div>
-                            <i></i>
-                            <strong>Cidades aquiii</strong>
-                            <button type="button"><i>...</i></button>
-                          </div>
-                        </div>
-                        <div class="content">
-                          <div class="content-description">
-                            <p>description goes here opa</p>
-                          </div>
-                          <div class="content-actions">
-                            <i></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-        <!-- <div class="dialogs-content--accordion">
-          <span class="arrow-right"></span>
-          <div>
-            <div class="dialogs-content">
-              <div>
-                <div class="title">
-                  <div>
-                    <i></i>
-                    <strong>Cidades</strong>
-                    <button type="button"><i>...</i></button>
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="content-description">
-                    <p>description goes here</p>
-                  </div>
-                  <div class="content-actions">
-                    <i></i>
-                    <button type="button" (click)="onInvokeEvent($event)">
-                      >
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-            <span class="dialogs-stack">
-              <i></i>
-            </span>
-          </div>
-        </div> -->
       </div>
     </div>
     <span class="dialogs-stack">

@@ -27,8 +27,7 @@ export class NodeDialogsComponent implements OnInit {
   @ViewChild('dialogContent') dialogContent!: any;
   value!: number;
 
-  dialogs: any[] = [];
-  dialogsNew: any[] = [];
+  dialogs: any = [];
 
   constructor(private store: Store) {}
 
@@ -64,11 +63,14 @@ export class NodeDialogsComponent implements OnInit {
       { nodes: new Map(), roots: [] }
     ).roots; // get the roots
 
-    console.log(result);
+    this.dialogs = result;
+    console.log(this.dialogs);
   }
 
   toggleAccordionNode(event: any) {
     let currElem = event.target;
+
+    console.log(event);
 
     const styles = {
       children: '.dialogs-content .children',
@@ -97,7 +99,6 @@ export class NodeDialogsComponent implements OnInit {
       this.removeNextChildrenVisibility(nextChildren, styles);
     }
   }
-
   addClass(currElem: any, children: any, stack: any, styles: any) {
     currElem.classList.add(styles.isVisible);
     children.classList.add(styles.isVisible);

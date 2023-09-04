@@ -11,8 +11,7 @@ export class FolderComponent {
   @Input() conditions?: string;
   @Input() title?: string;
   @Input() parent?: string;
-  @Input() children?: any[] = [];
-  @Input() childrenFolder?: any[] = [];
+  @Input() children?: any = [];
   @Output() toggleEmitter = new EventEmitter();
 
   onInvokeEvent(event: Event) {
