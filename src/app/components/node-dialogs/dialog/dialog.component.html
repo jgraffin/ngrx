@@ -1,4 +1,10 @@
-<div class="dialogs-content dialogs-content--empty --dialog">
+<div
+  [ngClass]="
+    className === 'empty'
+      ? 'dialogs-content dialogs-content--empty --empty'
+      : 'dialogs-content dialogs-content--empty'
+  "
+>
   <span class="arrow-right"></span>
   <div>
     <div class="dialogs-content">

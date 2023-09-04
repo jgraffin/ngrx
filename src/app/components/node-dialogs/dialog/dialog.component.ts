@@ -11,4 +11,5 @@ export class DialogComponent {
   @Input() conditions?: string;
   @Input() title?: string;
   @Input() parent?: string;
+  @Input() className?: string;
 }

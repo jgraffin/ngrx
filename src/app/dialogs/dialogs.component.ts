@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { SizeState, DialogsItem, DialogsState } from './store/dialogs.state';
 import { map } from 'rxjs';

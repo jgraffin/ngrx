@@ -7,7 +7,7 @@
   <div class="wrapper-elements">
     <app-node-dialogs
       *ngIf="dialogs$ | async as dialogs"
-      [data]="dialogs"
+      [nodes]="dialogs"
       [size]="(size$ | async) || 0"
     ></app-node-dialogs>
     <app-node-dialogs-form></app-node-dialogs-form>

@@ -1,19 +1,29 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadDialogs } from 'src/app/dialogs/store/dialogs.actions';
 
 type StylesType = {
   children: string;
-  elementClassName: string;
+  className: string;
   folderElement: string;
   isActive: string;
   isVisible: string;
+};
+
+type NodesType = {
+  total?: number;
+  currentPage?: number;
+  pageSize?: number;
+  data?: Array<{
+    id: string;
+    workspaceId?: string;
+    title?: string;
+    description?: string;
+    conditions: string;
+    type: string;
+    created?: string;
+    updated?: string;
+  }>;
 };
 @Component({
   selector: 'app-node-dialogs',
@@ -22,104 +32,101 @@ type StylesType = {
   encapsulation: ViewEncapsulation.None,
 })
 export class NodeDialogsComponent implements OnInit {
-  @Input() data!: any;
+  @Input() nodes!: NodesType;
   @Input() size!: number;
-  @ViewChild('dialogContent') dialogContent!: any;
-  value!: number;
 
-  dialogs: any = [];
+  dialogs!: any;
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadDialogs());
+    const items = this.nodes.data?.map((values) => values);
 
-    this.dialogs = this.data.data.map((values: any) => values);
-
-    this.folderStructure(this.dialogs);
+    this.folderStructure(items);
   }
 
-  folderStructure(arr: any) {
-    const result = arr.reduce(
-      ({ nodes, roots }: any, o: any) => {
+  folderStructure(items: any) {
+    const allNodes = items.reduce(
+      ({ nodes, roots }: any, item: any) => {
+        // Cria a pasta nó
         const node =
-          o.type === 'FOLDER'
-            ? { ...o, children: [], ...nodes.get(o.id) } // create folder node
-            : o;
+          item.type === 'FOLDER' || item.type === 'STANDARD'
+            ? { ...item, children: [], ...nodes.get(item.id) }
+            : item;
 
-        nodes.set(o.id, node); // set node to map
+        // Adiciona o nó ao mapa
+        nodes.set(item.id, node);
 
-        if (!o.parent) roots.push(node); // if no parent add to roots
-        else {
-          // create parent if it doesn't exist
-          if (!nodes.has(o.parent)) o.set({ id: o.parent, children: [] });
+        // Se não houver pasta pai, adiciona ao root
+        if (!item.parent) {
+          roots.push(node);
+        } else {
+          // Cria a pasta pai se não existir
+          if (!nodes.has(item.parent))
+            item.set({ id: item.parent, children: [] });
 
-          // add child to parent
-          nodes.get(o.parent).children.push(node);
+          // Adiciona nó filho
+          nodes.get(item.parent).children.push(node);
         }
 
         return { nodes, roots };
       },
       { nodes: new Map(), roots: [] }
-    ).roots; // get the roots
+    ).roots; // Obtém a raíz
 
-    this.dialogs = result;
+    this.dialogs = allNodes;
     console.log(this.dialogs);
   }
 
   toggleAccordionNode(event: any) {
-    let currElem = event.target;
-
-    console.log(event);
+    let current = event.target;
 
     const styles = {
       children: '.dialogs-content .children',
-      elementClassName: 'dialogs-content--accordion',
+      className: 'dialogs-content--accordion',
       folderElement: '.dialogs-content >  div',
       isActive: 'is-active',
       isVisible: 'is-visible',
     };
 
-    while (currElem && !currElem.classList.contains(styles.elementClassName)) {
-      currElem = currElem.parentElement;
+    while (current && !current.classList.contains(styles.className)) {
+      current = current.parentElement;
     }
 
-    if (currElem && currElem.classList.contains(styles.elementClassName)) {
-      const folder = currElem.querySelector(styles.folderElement);
-      const children = currElem.querySelector(styles.children);
+    if (current && current.classList.contains(styles.className)) {
+      const children = current.querySelector(styles.children);
+      const folder = current.querySelector(styles.folderElement);
+      const nextChildren = current.querySelectorAll(`.${styles.isVisible}`);
       const stack = folder.parentElement.nextElementSibling;
-      const nextChildren = currElem.querySelectorAll(`.${styles.isVisible}`);
 
-      if (!currElem.classList.contains(styles.isVisible)) {
-        this.addClass(currElem, children, stack, styles);
+      if (!current.classList.contains(styles.isVisible)) {
+        this.addClass(current, children, stack, styles);
       } else {
-        this.removeClass(currElem, children, stack, styles);
+        this.remClass(current, children, stack, styles);
       }
 
-      this.removeNextChildrenVisibility(nextChildren, styles);
+      this.remNextChildrenVisibility(nextChildren, styles);
     }
   }
-  addClass(currElem: any, children: any, stack: any, styles: any) {
-    currElem.classList.add(styles.isVisible);
-    children.classList.add(styles.isVisible);
-    stack.classList.add(styles.isActive);
+  addClass(el: HTMLElement, ch: HTMLElement, cl: HTMLElement, st: StylesType) {
+    el.classList.add(st.isVisible);
+    ch.classList.add(st.isVisible);
+    cl.classList.add(st.isActive);
   }
 
-  removeClass(currElem: any, children: any, stack: any, styles: any) {
-    currElem.classList.remove(styles.isVisible);
-    children.classList.remove(styles.isVisible);
-    stack.classList.remove(styles.isActive);
+  remClass(el: HTMLElement, ch: HTMLElement, cl: HTMLElement, st: StylesType) {
+    el.classList.remove(st.isVisible);
+    ch.classList.remove(st.isVisible);
+    cl.classList.remove(st.isActive);
   }
 
-  removeNextChildrenVisibility(next: HTMLElement[], styles: StylesType) {
+  remNextChildrenVisibility(next: HTMLElement[], st: StylesType) {
     next.forEach((el: HTMLElement) => {
-      const stackDetail = el.querySelector(`.${styles.isActive}`);
+      const stack = el.querySelector(`.${st.isActive}`);
 
-      stackDetail !== null
-        ? stackDetail?.classList.remove(styles.isActive)
-        : null;
+      stack !== null ? stack?.classList.remove(st.isActive) : null;
 
-      el.classList.remove(styles.isVisible);
+      el.classList.remove(st.isVisible);
     });
   }
 }
