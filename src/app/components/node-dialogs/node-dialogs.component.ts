@@ -25,6 +25,13 @@ type NodesType = {
     updated?: string;
   }>;
 };
+
+interface FolderNode {
+  id: number;
+  type: 'FOLDER' | 'STANDARD';
+  parent?: number;
+  children?: FolderNode[];
+}
 @Component({
   selector: 'app-node-dialogs',
   templateUrl: './node-dialogs.component.html',
@@ -46,36 +53,34 @@ export class NodeDialogsComponent implements OnInit {
   }
 
   folderStructure(items: any) {
-    const allNodes = items.reduce(
-      ({ nodes, roots }: any, item: any) => {
-        // Cria a pasta nó
-        const node =
-          item.type === 'FOLDER' || item.type === 'STANDARD'
-            ? { ...item, children: [], ...nodes.get(item.id) }
-            : item;
+    const nodesMap = new Map<number, FolderNode>();
+    const roots: FolderNode[] = [];
 
-        // Adiciona o nó ao mapa
-        nodes.set(item.id, node);
+    // Primeiro, popula o mapa de nós e identifica a raíz
+    for (const item of items) {
+      // Clona o item para evitar modificar o dado original
+      const node: FolderNode = { ...item, children: [] };
 
-        // Se não houver pasta pai, adiciona ao root
-        if (!item.parent) {
-          roots.push(node);
-        } else {
-          // Cria a pasta pai se não existir
-          if (!nodes.has(item.parent))
-            item.set({ id: item.parent, children: [] });
+      // Adiciona o nó ao mapa
+      nodesMap.set(item.id, node);
 
-          // Adiciona nó filho
-          nodes.get(item.parent).children.push(node);
+      if (item.parent === undefined) {
+        roots.push(node);
+      }
+    }
+
+    // Segundo, conecta nós filhos aos seus nós pais
+    for (const item of items) {
+      if (item.parent !== undefined) {
+        const parentNode = nodesMap.get(item.parent);
+
+        if (parentNode) {
+          parentNode?.children?.push(nodesMap.get(item.id)!);
         }
+      }
+    }
 
-        return { nodes, roots };
-      },
-      { nodes: new Map(), roots: [] }
-    ).roots; // Obtém a raíz
-
-    this.dialogs = allNodes;
-    console.log(this.dialogs);
+    this.dialogs = roots;
   }
 
   toggleAccordionNode(event: any) {
