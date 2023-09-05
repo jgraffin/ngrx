@@ -12,11 +12,13 @@ import { SizeReducer, DialogsReducer } from './store/dialogs.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FolderEmptyModule } from '../components/node-dialogs/folder-empty/folder-empty.module';
 import { FolderModule } from '../components/node-dialogs/folder/folder.module';
+import { DropdownActionsModule } from '../components/dropdown-actions/dropdown-actions.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DialogsRoutingModule,
+    DropdownActionsModule,
     FolderEmptyModule,
     FolderModule,
     StoreModule.forRoot({

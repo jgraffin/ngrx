@@ -3,6 +3,7 @@
     <ng-container *ngFor="let item of dialogs">
       <ng-container *ngIf="item.children && item.children.length > 0">
         <app-folder
+          [className]="item.type"
           [children]="item.children"
           [hasActions]="true"
           [id]="item.id"

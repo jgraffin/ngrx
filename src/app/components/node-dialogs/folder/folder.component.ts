@@ -19,4 +19,27 @@ export class FolderComponent {
   onInvokeEvent(event: Event) {
     this.toggleEmitter.emit(event);
   }
+
+  openActions(event: any) {
+    let current = event.target;
+    const dropDownElement = event.target.nextElementSibling;
+
+    const styles = {
+      className: 'node-content-children',
+      isActive: 'is-active',
+    };
+
+    while (current && !current.classList.contains(styles.className)) {
+      current = current.parentElement;
+    }
+
+    if (!dropDownElement.classList.contains(styles.isActive)) {
+      dropDownElement.classList.add(styles.isActive);
+      current.style.overflow = 'visible';
+      current.style.zIndex = 5;
+    } else {
+      dropDownElement.classList.remove(styles.isActive);
+      current.removeAttribute('style');
+    }
+  }
 }

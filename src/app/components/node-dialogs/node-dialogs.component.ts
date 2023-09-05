@@ -45,6 +45,7 @@ export class NodeDialogsComponent implements OnInit {
   @Input() size!: number;
 
   dialogs!: FolderNode[];
+  show = false;
 
   constructor() {}
 
@@ -90,6 +91,7 @@ export class NodeDialogsComponent implements OnInit {
     let current = event.target;
 
     const styles = {
+      arrow: '.content button',
       children: '.node-content .children',
       className: 'node-content-children',
       folderElement: '.node-content >  div',
@@ -103,38 +105,41 @@ export class NodeDialogsComponent implements OnInit {
 
     if (current && current.classList.contains(styles.className)) {
       const children = current.querySelector(styles.children);
+      const arrow = children.previousElementSibling.querySelector(styles.arrow);
       const folder = current.querySelector(styles.folderElement);
-      const nextChildren = current.querySelectorAll(`.${styles.isVisible}`);
       const stack = folder.parentElement.nextElementSibling;
+      const nextChildren = current.querySelectorAll(`.${styles.isVisible}`);
 
       if (!current.classList.contains(styles.isVisible)) {
-        this.addClass(current, children, stack, styles);
+        arrow.classList.add(styles.isActive);
+        children.classList.add(styles.isVisible);
+        current.classList.add(styles.isVisible);
+        stack.classList.add(styles.isActive);
       } else {
-        this.remClass(current, children, stack, styles);
+        arrow.classList.remove(styles.isActive);
+        children.classList.remove(styles.isVisible);
+        current.classList.remove(styles.isVisible);
+        stack.classList.remove(styles.isActive);
       }
 
-      this.remNextChildrenVisibility(nextChildren, styles);
+      this.remNextChildrenVisibility(nextChildren, styles, arrow);
     }
   }
-  addClass(el: HTMLElement, ch: HTMLElement, cl: HTMLElement, st: StylesType) {
-    el.classList.add(st.isVisible);
-    ch.classList.add(st.isVisible);
-    cl.classList.add(st.isActive);
-  }
 
-  remClass(el: HTMLElement, ch: HTMLElement, cl: HTMLElement, st: StylesType) {
-    el.classList.remove(st.isVisible);
-    ch.classList.remove(st.isVisible);
-    cl.classList.remove(st.isActive);
-  }
-
-  remNextChildrenVisibility(next: HTMLElement[], st: StylesType) {
+  remNextChildrenVisibility(
+    next: HTMLElement[],
+    styles: StylesType,
+    arrow: HTMLElement
+  ) {
     next.forEach((el: HTMLElement) => {
-      const stack = el.querySelector(`.${st.isActive}`);
+      const dropDown = el.querySelector(`.${styles.isActive}`);
+      const stack = el.querySelector(`.${styles.isActive}`);
 
-      stack !== null ? stack?.classList.remove(st.isActive) : null;
+      stack !== null ? stack?.classList.remove(styles.isActive) : null;
 
-      el.classList.remove(st.isVisible);
+      arrow.classList.remove(styles.isActive);
+      dropDown?.nextElementSibling?.classList.remove(styles.isActive);
+      el.classList.remove(styles.isVisible);
     });
   }
 }

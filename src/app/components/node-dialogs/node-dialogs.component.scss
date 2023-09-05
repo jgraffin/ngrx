@@ -9,13 +9,22 @@
   }
 }
 
+@keyframes rotateArrowAccordion {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
 %node {
   background: white;
   border-radius: 0.25em;
   border: 1px solid #e1e7f1;
   display: flex;
   flex-direction: column;
-  height: 9.875em;
+  height: 9.86em;
   width: 23em;
 }
 
@@ -37,6 +46,7 @@
         height: 5em;
         padding-left: 2.4em;
         padding-top: 1em;
+        position: relative;
 
         > div {
           align-items: center;
@@ -59,6 +69,7 @@
             color: #002257;
             font-size: 1em;
             font-weight: 100;
+            width: 15em;
           }
 
           button {
@@ -80,6 +91,10 @@
               height: 100%;
               width: 100%;
             }
+          }
+
+          .node-dropdown {
+            margin-right: -0.3em;
           }
         }
       }
@@ -108,10 +123,25 @@
           button {
             background-color: transparent;
             border: 0;
-            color: #0082f6;
             cursor: pointer;
             font-weight: 600;
-            padding: 0 0.4em;
+            width: 1.8em;
+            height: 1.8em;
+
+            svg {
+              height: 100%;
+              width: 100%;
+
+              path {
+                fill: #0082f6;
+              }
+            }
+
+            &.is-active {
+              svg {
+                animation: rotateArrowAccordion ease-in-out 0.3s forwards;
+              }
+            }
           }
         }
       }
@@ -131,6 +161,7 @@
       > div {
         background-color: white;
         border: 1px solid #e1e7f1;
+        border-radius: 0.25em;
         height: 9.8em !important;
         position: relative;
         width: 23em;
@@ -141,6 +172,14 @@
           padding-right: 1.4em;
         }
 
+        .title {
+          > div {
+            .node-dropdown {
+              margin-right: 0.84em;
+            }
+          }
+        }
+
         &:hover {
           box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
         }
@@ -148,7 +187,7 @@
 
       &.--dialog {
         > div {
-          border: 2px solid transparent;
+          border: 1px solid #e1e7f1;
           border-radius: 0.25em;
         }
 
@@ -193,6 +232,27 @@
           width: 1px;
           z-index: 0;
         }
+
+        &.--dialog {
+          .st-dtl {
+            &.is-active {
+              border: 1px solid #ff8c00;
+
+              i {
+                border: 1px solid #ff8c00;
+
+                &::before {
+                  border: 2px solid #ff8c00;
+                  top: -0.7em;
+                }
+
+                &::after {
+                  border: 1px solid #ff8c00;
+                }
+              }
+            }
+          }
+        }
       }
 
       > div {
@@ -210,7 +270,7 @@
           background: #0082f6;
           height: 1px;
           position: absolute;
-          top: 3.95em;
+          top: 4.8em;
           width: 1.9em;
           left: -1em;
 
@@ -237,6 +297,7 @@
           animation: slideIn ease-in-out 0.2s forwards;
           height: auto;
           visibility: visible;
+          z-index: 0;
         }
 
         .node-content-empty {
