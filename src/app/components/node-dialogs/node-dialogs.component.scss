@@ -9,7 +9,7 @@
   }
 }
 
-%card {
+%node {
   background: white;
   border-radius: 0.25em;
   border: 1px solid #e1e7f1;
@@ -19,12 +19,12 @@
   width: 23em;
 }
 
-.dialogs-container {
-  .dialogs-content {
+.nodes-container {
+  .node-content {
     position: relative;
 
     > div {
-      @extend %card;
+      @extend %node;
       background-color: transparent;
       border: 0;
       height: 12em;
@@ -45,14 +45,14 @@
           width: 100%;
 
           i {
-            display: flex;
             align-items: center;
-            justify-content: center;
-            width: 2.25em;
-            height: 2.25em;
-            border-radius: 90px;
             background: gray;
+            border-radius: 90px;
+            display: flex;
+            height: 2.25em;
+            justify-content: center;
             margin-right: 0.8em;
+            width: 2.25em;
           }
 
           strong {
@@ -102,33 +102,26 @@
         }
 
         .content-actions {
+          display: flex;
+          justify-content: space-between;
+
           button {
             background-color: transparent;
             border: 0;
-            font-weight: 600;
             color: #0082f6;
-            padding: 0 0.4em;
             cursor: pointer;
+            font-weight: 600;
+            padding: 0 0.4em;
           }
         }
       }
     }
 
-    .content {
-      &-actions {
-        display: flex;
-        justify-content: space-between;
-
-        button {
-          padding: 0.4em 2em;
-        }
-      }
-    }
-
-    &--empty {
-      margin-left: 1em;
+    &-empty {
       height: 10.5em !important;
+      margin-left: 1em;
       margin-top: -0.4em;
+      position: relative;
 
       .title,
       .content {
@@ -137,8 +130,11 @@
 
       > div {
         background-color: white;
-        height: 9.8em !important;
         border: 1px solid #e1e7f1;
+        height: 9.8em !important;
+        position: relative;
+        width: 23em;
+        z-index: 2;
 
         .title,
         .content {
@@ -149,9 +145,22 @@
           box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
         }
       }
+
+      &.--dialog {
+        > div {
+          border: 2px solid transparent;
+          border-radius: 0.25em;
+        }
+
+        &.is-active {
+          > div {
+            border: 2px solid #ff8c00;
+          }
+        }
+      }
     }
 
-    &--accordion {
+    &-children {
       display: flex;
       height: 12em;
       overflow: hidden;
@@ -162,33 +171,33 @@
         height: auto;
 
         &::before {
-          content: "";
-          width: 0.6875em;
-          height: 0.6875em;
-          position: absolute;
-          left: 1.6em;
-          top: 11em;
+          background: white;
           border-radius: 90px;
           border: 1px solid #0082f6;
-          background: white;
+          content: "";
+          height: 0.6875em;
+          left: 1.6em;
+          position: absolute;
+          top: 11em;
+          width: 0.6875em;
           z-index: 2;
         }
 
         &::after {
-          content: "";
-          width: 1px;
-          height: 100%;
-          position: absolute;
-          left: 2em;
-          top: 11em;
           background: #0082f6;
+          content: "";
+          height: 100%;
+          left: 2em;
+          position: absolute;
+          top: 11em;
+          width: 1px;
           z-index: 0;
         }
       }
 
       > div {
         &:hover {
-          .dialogs-stack {
+          .st {
             box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.05);
           }
         }
@@ -197,29 +206,30 @@
       .children {
         visibility: hidden;
 
-        .arrow-right {
+        .arr-dtl {
+          background: #0082f6;
+          height: 1px;
           position: absolute;
           top: 3.95em;
           width: 1.9em;
-          height: 1px;
-          background: #0082f6;
+          left: -1em;
 
           &::before,
           &::after {
-            content: "";
-            width: 0.65em;
-            height: 1px;
             background: #0082f6;
+            content: "";
             display: block;
-            transform: rotate(-141deg);
+            height: 1px;
             position: absolute;
             right: 0;
             top: -0.25em;
+            transform: rotate(-141deg);
+            width: 0.65em;
           }
 
           &::after {
-            transform: rotate(-40deg);
             top: 0.25em;
+            transform: rotate(-40deg);
           }
         }
 
@@ -229,81 +239,99 @@
           visibility: visible;
         }
 
-        .dialogs-content.dialogs-content--empty {
+        .node-content-empty {
           margin-bottom: 0.8em;
 
           + div {
             margin-bottom: 0;
           }
 
-          .arrow-right {
+          .arr-dtl {
             left: -2em;
           }
         }
 
-        .dialogs-content--accordion {
-          .arrow-right {
+        .node-content-children {
+          .arr-dtl {
             left: -1em;
+          }
+
+          .children {
+            .node-content-children {
+              .arr-dtl {
+                left: -1em;
+              }
+
+              .node-content-empty {
+                .arr-dtl {
+                  left: -2em;
+                }
+              }
+            }
+
+            .arr-dtl {
+              left: -2em;
+            }
           }
         }
       }
 
-      .dialogs-content--empty {
+      .node-content-empty {
         margin-left: 4em;
       }
 
-      .dialogs-content--accordion {
+      .node-content-children {
         margin-left: 3em;
         overflow: visible;
       }
     }
   }
-}
 
-.dialogs-stack {
-  @extend %card;
-  position: absolute;
-  left: 1.8em;
-  top: 1.1em;
-  z-index: 0;
-
-  i {
-    @extend %card;
-    left: -0.3em;
-    top: -0.4em;
+  .st-dtl {
+    @extend %node;
+    left: 1.8em;
     position: absolute;
-    height: 10em;
-
-    &::before,
-    &::after {
-      @extend %card;
-      content: "";
-      position: absolute;
-      right: 0.45em;
-      top: -0.6em;
-      z-index: 2;
-    }
-
-    &::after {
-      right: 0.2em;
-      top: -0.3em;
-      z-index: 1;
-    }
-  }
-
-  &.is-active {
-    border: 1px solid #9066ff;
+    top: 1.1em;
+    z-index: 0;
 
     i {
-      border: 1px solid #9066ff;
+      @extend %node;
+      height: 10em;
+      left: -0.3em;
+      position: absolute;
+      top: -0.4em;
 
-      &::before {
-        border: 2px solid #9066ff;
-        top: -0.7em;
+      &::before,
+      &::after {
+        @extend %node;
+        content: "";
+        position: absolute;
+        right: 0.45em;
+        top: -0.6em;
+        z-index: 2;
       }
 
       &::after {
+        right: 0.2em;
+        top: -0.3em;
+        z-index: 1;
+      }
+    }
+
+    &.is-active {
+      border: 1px solid #9066ff;
+
+      i {
         border: 1px solid #9066ff;
+
+        &::before {
+          border: 2px solid #9066ff;
+          top: -0.7em;
+        }
+
+        &::after {
+          border: 1px solid #9066ff;
+        }
       }
     }
   }

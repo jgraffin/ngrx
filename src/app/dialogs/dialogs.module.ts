@@ -10,14 +10,14 @@ import { ToastyActionComponent } from '../components/toasty-action/toasty-action
 import { StoreModule } from '@ngrx/store';
 import { SizeReducer, DialogsReducer } from './store/dialogs.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { DialogModule } from '../components/node-dialogs/dialog/dialog.module';
+import { FolderEmptyModule } from '../components/node-dialogs/folder-empty/folder-empty.module';
 import { FolderModule } from '../components/node-dialogs/folder/folder.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DialogsRoutingModule,
-    DialogModule,
+    FolderEmptyModule,
     FolderModule,
     StoreModule.forRoot({
       sizeReducer: SizeReducer,

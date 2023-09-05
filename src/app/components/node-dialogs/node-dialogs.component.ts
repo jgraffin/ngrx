@@ -27,10 +27,12 @@ type NodesType = {
 };
 
 interface FolderNode {
-  id: number;
+  id: string;
   type: 'FOLDER' | 'STANDARD';
   parent?: number;
   children?: FolderNode[];
+  conditions?: string;
+  title?: string;
 }
 @Component({
   selector: 'app-node-dialogs',
@@ -42,7 +44,7 @@ export class NodeDialogsComponent implements OnInit {
   @Input() nodes!: NodesType;
   @Input() size!: number;
 
-  dialogs!: any;
+  dialogs!: FolderNode[];
 
   constructor() {}
 
@@ -81,15 +83,16 @@ export class NodeDialogsComponent implements OnInit {
     }
 
     this.dialogs = roots;
+    console.log(this.dialogs);
   }
 
   toggleAccordionNode(event: any) {
     let current = event.target;
 
     const styles = {
-      children: '.dialogs-content .children',
-      className: 'dialogs-content--accordion',
-      folderElement: '.dialogs-content >  div',
+      children: '.node-content .children',
+      className: 'node-content-children',
+      folderElement: '.node-content >  div',
       isActive: 'is-active',
       isVisible: 'is-visible',
     };
