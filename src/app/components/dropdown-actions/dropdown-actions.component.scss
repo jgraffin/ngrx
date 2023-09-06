@@ -16,6 +16,20 @@
   top: 0;
   width: 2rem;
 
+  &:hover {
+    height: auto;
+
+    .node-dropdown-button {
+      background-color: #f7f9fa;
+
+      + .node-dropdown-actions {
+        animation: slideDown ease-in-out 0.15s forwards;
+        visibility: visible;
+        z-index: 5;
+      }
+    }
+  }
+
   .node-dropdown-button {
     border: 0;
     height: 2.2em;
@@ -30,10 +44,6 @@
       path {
         fill: gray;
       }
-    }
-
-    &.is-active {
-      background-color: #f7f9fa;
     }
   }
 }

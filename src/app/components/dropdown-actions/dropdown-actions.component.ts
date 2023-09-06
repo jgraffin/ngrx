@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-actions',
@@ -6,7 +12,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./dropdown-actions.component.scss'],
 })
 export class DropdownActionsComponent {
-  @Output() dropDownEmitter = new EventEmitter();
+  @Output()
+  dropDownEmitter = new EventEmitter();
 
   onInvokeDropDownEvent(event: any) {
     let current = event.target;

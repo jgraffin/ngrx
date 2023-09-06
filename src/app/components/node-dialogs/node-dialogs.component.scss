@@ -125,8 +125,8 @@
             border: 0;
             cursor: pointer;
             font-weight: 600;
-            width: 1.8em;
             height: 1.8em;
+            width: 1.8em;
 
             svg {
               height: 100%;
@@ -150,7 +150,6 @@
     &-empty {
       height: 10.5em !important;
       margin-left: 1em;
-      margin-top: -0.4em;
       position: relative;
 
       .title,
@@ -197,6 +196,11 @@
           }
         }
       }
+
+      &:hover {
+        overflow: visible;
+        z-index: 5;
+      }
     }
 
     &-children {
@@ -205,6 +209,17 @@
       overflow: hidden;
       position: relative;
       width: 80vw;
+
+      &:hover {
+        overflow: visible;
+        z-index: 5;
+      }
+
+      &.--dialog {
+        > div {
+            z-index: 1;
+          }
+      }
 
       &.is-visible {
         height: auto;
@@ -225,7 +240,7 @@
         &::after {
           background: #0082f6;
           content: "";
-          height: 100%;
+          height: -webkit-fill-available;
           left: 2em;
           position: absolute;
           top: 11em;
