@@ -1,16 +1,19 @@
 import {
   Component,
   EventEmitter,
-  HostListener,
   Input,
   Output,
-  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
+import { dropdownActions } from '../../../dialogs/store/dialogs.actions';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
 })
 export class FolderComponent {
   @Input() id?: string;
@@ -21,32 +24,30 @@ export class FolderComponent {
   @Input() children?: any = [];
   @Input() hasActions = false;
   @Input() className?: string;
+  @Input() filtered!: any;
   @Output() toggleEmitter = new EventEmitter();
+
+  constructor(
+    private store: Store<{
+      searchNodeReducer: any;
+    }>
+  ) {}
+
+  query$ = this.store.select('searchNodeReducer').pipe(map((e) => e.query));
 
   onInvokeEvent(event: Event) {
     this.toggleEmitter.emit(event);
   }
 
-  openActions(event: any) {
-    let current = event.target;
-    const dropDownElement = event.target.nextElementSibling;
+  openActions(event: any): any {
+    const { target } = event;
 
-    const styles = {
-      className: 'node-content-children',
-      isActive: 'is-active',
-    };
-
-    while (current && !current.classList.contains(styles.className)) {
-      current = current.parentElement;
-    }
-
-    if (!dropDownElement.classList.contains(styles.isActive)) {
-      dropDownElement.classList.add(styles.isActive);
-      current.style.overflow = 'visible';
-      current.style.zIndex = 5;
-    } else {
-      dropDownElement.classList.remove(styles.isActive);
-      current.removeAttribute('style');
+    switch (target.id) {
+      case 'toAlter':
+        this.store.dispatch(dropdownActions({ show: true }));
+        break;
+      default:
+        return '';
     }
   }
 }

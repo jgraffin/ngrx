@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadDialogs } from 'src/app/dialogs/store/dialogs.actions';
+import { map } from 'rxjs';
 
 type StylesType = {
   children: string;
@@ -45,12 +45,15 @@ export class NodeDialogsComponent implements OnInit {
   @Input() size!: number;
 
   dialogs!: FolderNode[];
-  show = false;
 
-  constructor() {}
+  constructor(private store: Store<{ dropDownActionsReducer: any }>) {}
+
+  dropdownAction$ = this.store
+    .select('dropDownActionsReducer')
+    .pipe(map((e) => e.show));
 
   ngOnInit(): void {
-    const items = this.nodes.data?.map((values) => values);
+    const items = this.nodes.data?.map((values) => values) as NodesType;
 
     this.folderStructure(items);
   }
@@ -91,10 +94,10 @@ export class NodeDialogsComponent implements OnInit {
     let current = event.target;
 
     const styles = {
-      arrow: '.content button',
-      children: '.node-content .children',
-      className: 'node-content-children',
-      folderElement: '.node-content >  div',
+      actionButton: '.content .actions-button',
+      children: '.node .children',
+      className: 'node',
+      folderElement: '.node >  div',
       isActive: 'is-active',
       isVisible: 'is-visible',
     };
@@ -105,39 +108,30 @@ export class NodeDialogsComponent implements OnInit {
 
     if (current && current.classList.contains(styles.className)) {
       const children = current.querySelector(styles.children);
-      const arrow = children.previousElementSibling.querySelector(styles.arrow);
-      const folder = current.querySelector(styles.folderElement);
-      const stack = folder.parentElement.nextElementSibling;
+      const actionButton = current.querySelector(styles.actionButton);
       const nextChildren = current.querySelectorAll(`.${styles.isVisible}`);
 
       if (!current.classList.contains(styles.isVisible)) {
-        arrow.classList.add(styles.isActive);
         children.classList.add(styles.isVisible);
         current.classList.add(styles.isVisible);
-        stack.classList.add(styles.isActive);
+        actionButton.classList.add(styles.isActive);
       } else {
-        arrow.classList.remove(styles.isActive);
         children.classList.remove(styles.isVisible);
         current.classList.remove(styles.isVisible);
-        stack.classList.remove(styles.isActive);
+        actionButton.classList.remove(styles.isActive);
       }
 
-      this.remNextChildrenVisibility(nextChildren, styles, arrow);
+      this.removeNextChildrenVisibility(nextChildren, styles);
     }
   }
 
-  remNextChildrenVisibility(
-    next: HTMLElement[],
-    styles: StylesType,
-    arrow: HTMLElement
-  ) {
+  removeNextChildrenVisibility(next: HTMLElement[], styles: StylesType) {
     next.forEach((el: HTMLElement) => {
       const dropDown = el.querySelector(`.${styles.isActive}`);
       const stack = el.querySelector(`.${styles.isActive}`);
 
       stack !== null ? stack?.classList.remove(styles.isActive) : null;
 
-      arrow.classList.remove(styles.isActive);
       dropDown?.nextElementSibling?.classList.remove(styles.isActive);
       el.classList.remove(styles.isVisible);
     });

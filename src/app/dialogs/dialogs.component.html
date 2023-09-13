@@ -1,15 +1,17 @@
-<div class="wrapper">
-  <div class="wrapper-elements">
-    <app-search></app-search>
+<div class="dialogs">
+  <div class="dialogs-functionalities">
+    <app-search [counter]="counter"></app-search>
     <app-slider></app-slider>
   </div>
 
-  <div class="wrapper-elements">
+  <div class="dialogs-functionalities">
     <app-node-dialogs
-      *ngIf="dialogs$ | async as dialogs"
-      [nodes]="dialogs"
+      *ngIf="dialogs$ | async as nodes"
+      [nodes]="nodes"
       [size]="(size$ | async) || 0"
     ></app-node-dialogs>
-    <app-node-dialogs-form></app-node-dialogs-form>
+    <app-node-dialogs-form
+      *ngIf="dropdownAction$ | async"
+    ></app-node-dialogs-form>
   </div>
 </div>

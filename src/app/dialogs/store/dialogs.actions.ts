@@ -1,22 +1,32 @@
 import { createAction, props } from '@ngrx/store';
 import { DialogsItem } from './dialogs.state';
 
-// ----------- Dialogs
-export const loadDialogs = createAction('[Dialogs list]');
-export const loadDialogsSuccess = createAction(
-  '[Dialogs loadDialogsSuccess]',
-  props<{ payload: DialogsItem[] }>()
+// ----------- Search
+export const searchNodes = createAction(
+  '[Search Nodes]',
+  props<{ query: string }>()
 );
-export const loadDialogsError = createAction('[Dialogs loadDialogsError]');
 
-// -----------  Size
-export const increaseSize = createAction('[button] Increase size');
-export const decreaseSize = createAction('[button] Decrease size');
+// ----------- Dialogs
+export const loadDialogs = createAction('[Load Dialogs list]');
+
+// ----------- Size
+export const increaseSize = createAction('[Button] Increase size');
+
+export const decreaseSize = createAction('[Button] Decrease size');
+
 export const sliderSize = createAction(
-  '[slider] Increase/Decrease size',
+  '[Slider] Increase/Decrease size',
   props<{ fontSize: number }>()
 );
+
 export const inputSize = createAction(
-  '[input] Increase/Decrease size',
+  '[Input] Increase/Decrease size',
   props<{ fontSize: number }>()
+);
+
+// ----------- DropdownActions
+export const dropdownActions = createAction(
+  '[Button] dropdown action',
+  props<{ show: boolean }>()
 );

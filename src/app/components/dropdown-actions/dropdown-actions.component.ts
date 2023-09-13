@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-actions',
@@ -12,17 +6,36 @@ import {
   styleUrls: ['./dropdown-actions.component.scss'],
 })
 export class DropdownActionsComponent {
-  @Output()
-  dropDownEmitter = new EventEmitter();
+  @Output() actionsEmitter = new EventEmitter();
 
-  onInvokeDropDownEvent(event: any) {
-    let current = event.target;
-    const isActive = 'is-active';
+  actions = [
+    {
+      text: 'Novo diálogo filho',
+      action: 'newDialogChild',
+    },
+    {
+      text: 'Nova pasta filha',
+      action: 'newFolderChild',
+    },
+    {
+      text: 'Alterar',
+      action: 'toAlter',
+    },
+    {
+      text: 'Duplicar',
+      action: 'toDuplicate',
+    },
+    {
+      text: 'Excluir',
+      action: 'toDelete',
+    },
+    {
+      text: 'Mover',
+      action: 'toMove',
+    },
+  ];
 
-    !current.classList.contains(isActive)
-      ? current.classList.add(isActive)
-      : current.classList.remove(isActive);
-
-    this.dropDownEmitter.emit(event);
+  onInvokeActionEvent(event: any) {
+    this.actionsEmitter.emit(event);
   }
 }

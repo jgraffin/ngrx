@@ -1,11 +1,11 @@
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-1em);
+    transform: translateX(-1em);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -20,21 +20,21 @@
     height: auto;
 
     .node-dropdown-button {
-      background-color: #f7f9fa;
+      background-color: var(--gray-07);
 
       + .node-dropdown-actions {
         animation: slideDown ease-in-out 0.15s forwards;
         visibility: visible;
-        z-index: 5;
       }
     }
   }
 
   .node-dropdown-button {
     border: 0;
-    height: 2.2em;
+    height: 1.9em;
     padding: 0;
-    width: 2.2em;
+    pointer-events: none;
+    width: 1.9em;
 
     svg {
       height: 80%;
@@ -42,44 +42,48 @@
       width: 80%;
 
       path {
-        fill: gray;
+        fill: var(--gray-06);
       }
     }
   }
 }
 
 .node-dropdown-actions {
-  background-color: white;
+  background-color: var(--white);
   border-radius: 0.3em;
-  border: 1px solid #0075dd;
+  border: 1px solid var(--blue-04);
   margin-left: -0.1em;
-  margin-top: -0.25em;
-  width: 9.8em;
-  position: absolute;
-  top: 1.8em;
-  right: -7.5em;
+  margin-top: 0.1em;
   opacity: 0;
-  visibility: hidden;
   overflow: hidden;
+  position: absolute;
+  right: -9.5em;
+  top: -1.7em;
+  visibility: hidden;
+  width: 9.8em;
 
   ul {
     display: flex;
     flex-direction: column;
     list-style: none;
+    margin: 0;
+    padding: 0;
     width: 100%;
 
     li {
+      padding: 0;
+
       button {
         background-color: transparent;
-        border: 0;
         border-radius: 0;
-        font-size: 0.8em;
+        border: 0;
+        font-size: 0.79em;
         justify-content: flex-start;
-        padding: 1.26em 1.25em;
+        padding: 1.16em 1.25em;
         width: 100%;
 
         &:hover {
-          background-color: #f4f4f4;
+          background-color: var(--gray-08);
         }
       }
 

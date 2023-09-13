@@ -5,8 +5,8 @@ import {
   increaseSize,
   decreaseSize,
   sliderSize,
-} from 'src/app/dialogs/store/dialogs.actions';
-import { SizeState } from 'src/app/dialogs/store/dialogs.state';
+} from '../../dialogs/store/dialogs.actions';
+import { SizeState } from '../../dialogs/store/dialogs.state';
 
 @Component({
   selector: 'app-slider',

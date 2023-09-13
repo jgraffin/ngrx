@@ -1,17 +1,25 @@
-<div class="nodes-container" [ngStyle]="{ 'font-size': size + '%' }">
+<div
+  [ngClass]="{
+    small: (dropdownAction$ | async) === true
+  }"
+  class="nodes-container"
+  [ngStyle]="{ 'font-size': size + '%' }"
+>
   <ng-container *ngIf="dialogs.length > 0; else noDialogsAvailable">
     <ng-container *ngFor="let item of dialogs">
       <ng-container *ngIf="item.children && item.children.length > 0">
-        <app-folder
-          [className]="item.type"
-          [children]="item.children"
-          [hasActions]="true"
-          [id]="item.id"
-          [type]="item.type"
-          [conditions]="item.conditions"
-          [title]="item.title"
-          (toggleEmitter)="toggleAccordionNode($event)"
-        ></app-folder>
+        <div>
+          <app-folder
+            [className]="item.type"
+            [children]="item.children"
+            [hasActions]="true"
+            [id]="item.id"
+            [type]="item.type"
+            [conditions]="item.conditions"
+            [title]="item.title"
+            (toggleEmitter)="toggleAccordionNode($event)"
+          ></app-folder>
+        </div>
       </ng-container>
 
       <ng-container
@@ -19,13 +27,15 @@
           item.type === 'FOLDER' && item.children && item.children.length === 0
         "
       >
-        <app-folder-empty
-          [className]="item.type"
-          [id]="item.id"
-          [type]="item.type"
-          [conditions]="item.conditions"
-          [title]="item.title"
-        ></app-folder-empty>
+        <div>
+          <app-folder-empty
+            [className]="item.type"
+            [id]="item.id"
+            [type]="item.type"
+            [conditions]="item.conditions"
+            [title]="item.title"
+          ></app-folder-empty>
+        </div>
       </ng-container>
 
       <ng-container
@@ -35,13 +45,15 @@
           item.children.length === 0
         "
       >
-        <app-folder-empty
-          [className]="item.type"
-          [id]="item.id"
-          [type]="item.type"
-          [conditions]="item.conditions"
-          [title]="item.title"
-        ></app-folder-empty>
+        <div>
+          <app-folder-empty
+            [className]="item.type"
+            [id]="item.id"
+            [type]="item.type"
+            [conditions]="item.conditions"
+            [title]="item.title"
+          ></app-folder-empty>
+        </div>
       </ng-container>
     </ng-container>
   </ng-container>

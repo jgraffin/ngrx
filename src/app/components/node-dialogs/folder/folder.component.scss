@@ -1,0 +1,92 @@
+@keyframes rotateArrowAccordion {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
+.node {
+  background-color: transparent;
+  background-image: var(--background-stack-folder);
+  background-position: right top;
+  background-size: contain;
+  border: 0;
+  height: 11.5em;
+  margin-bottom: 0.75em;
+  width: 23.8em;
+
+  .node-content {
+    &::after {
+      background-color: transparent;
+      background-image: var(--background-nesting-arrow);
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      content: "";
+      display: block;
+      height: -webkit-fill-available;
+      left: -2em;
+      position: absolute;
+      top: -1.4em;
+      width: 2em;
+    }
+
+    .children {
+      display: flex;
+      flex-direction: column;
+      padding-top: 2.4em;
+      visibility: hidden;
+
+      &.is-visible {
+        padding-left: 3em;
+        visibility: visible;
+      }
+    }
+
+    .actions-button {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      height: 2.22em;
+      margin-left: auto;
+      width: 2.22em;
+
+      svg {
+        height: 100%;
+        pointer-events: none;
+        width: 100%;
+
+        path {
+          fill: var(--blue-01);
+        }
+      }
+
+      &.is-active {
+        svg {
+          animation: rotateArrowAccordion ease-in-out 0.3s forwards;
+        }
+      }
+    }
+  }
+
+  &.is-visible {
+    height: auto;
+
+    .node-content {
+      height: auto;
+    }
+
+    &.--folder,
+    &.--dialog {
+      background-image: var(--background-stack-folder-active);
+      background-color: transparent;
+      border: 0;
+      background-repeat: no-repeat;
+    }
+
+    &.--dialog {
+      background-image: var(--background-stack-dialog-active);
+    }
+  }
+}

@@ -1,7 +1,65 @@
 * {
   margin: 0;
   padding: 0;
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 
+:root {
+
+  // Light
+  --white: #ffffff;
+  --gray-lighter: #E0E7F2;
+  --gray-01: #797a94;
+  --gray-02: #F0F8FF;
+  --gray-03: #EEF8FF;
+  --gray-04: #e1e7f1;
+  --gray-05: #e9ebf2;
+  --gray-06: #818181;
+  --gray-07: #f7f9fa;
+  --gray-08: #dfe1e2;
+  --gray-09: #ecf1f7;
+
+  // Darker
+  --darker-01: #00173F;
+
+  // Shadows
+  --shadow: #1717172E;
+
+  // Greens
+  --green-light: #0CEDA6;
+  --green: #02AB3A;
+  --green-success-dark: #00A871;
+
+
+  // Blues
+  --blue-warm-70: #2F4668;
+  --blue-01: #0080FF;
+  --blue-02: #0082f6;
+  --blue-03: #002257;
+  --blue-04: #0075dd;
+  --blue-05: #001F42;
+
+  // Purple
+  --purple-01: #9066ff;
+
+  // Danger
+  --danger-dark: #ff0041;
+
+  // Warning
+  --orange: #ff8c00;
+  --orange-light: #FFCD07;
+
+  // Fonts
+  --font-family-open-sans: Open Sans, sans-serif;
+
+  // Folder
+  --background-stack-folder: url('assets/icons/stack-folder.svg');
+  --background-stack-folder-active: url('assets/icons/stack-folder-active.svg');
+  --background-stack-dialog-active: url('assets/icons/stack-dialog-active.svg');
+  --background-nesting-arrow: url('assets/icons/nesting-arrow.svg');
+}
+
+body {
+  background-color: #ECF1F7;
+}

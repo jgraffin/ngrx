@@ -1,29 +1,29 @@
-<div
-  [ngClass]="
-    className === 'STANDARD'
-      ? 'node-content-empty --dialog'
-      : 'node-content-empty --folder'
-  "
->
-  <span class="arr-dtl"></span>
-  <div>
-    <div class="node-content">
-      <div>
-        <div class="title">
-          <div>
-            <i></i>
-            <strong>{{ id }}</strong>
-            <app-dropdown-actions></app-dropdown-actions>
-          </div>
-        </div>
-        <div class="content">
-          <div class="content-description">
-            <p>{{ conditions }}</p>
-          </div>
-          <div class="content-actions">
-            <i></i>
-          </div>
-        </div>
+<div [ngClass]="className === 'STANDARD' ? 'node --dialog' : 'node --folder'">
+  <div class="node-content">
+    <div class="title">
+      <i
+        [ngClass]="
+          className === 'FOLDER'
+            ? 'channel-icon icon-folder'
+            : 'channel-icon icon-dialog'
+        "
+      ></i>
+      <strong>{{ title }}</strong>
+      <app-dropdown-actions></app-dropdown-actions>
+    </div>
+    <div class="content">
+      <div class="content-description">
+        <p [innerHTML]="conditions | highlighter : (query$ | async)"></p>
+      </div>
+      <div class="content-actions">
+        <i
+          *ngIf="className === 'STANDARD'; else folder"
+          class="channel-icon icon-whatsapp-active"
+          >whatsapp</i
+        >
+        <ng-template #folder>
+          <i class="channel-icon icon-fb-messenger-active">messenger</i>
+        </ng-template>
       </div>
     </div>
   </div>
